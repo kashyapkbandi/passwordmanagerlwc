@@ -1,0 +1,175 @@
+<template>
+
+    <!-- Force record create component show/hide based on button click -->
+    <template if:true={showcomponent}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close">
+                        <lightning-button-icon icon-name="utility:close" size="medium" variant="border-inverse"
+                            alternative-text="View More" class="slds-m-left_xx-small" onclick={closemodal}>
+                        </lightning-button-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Add a new credential record</h2>
+                    <p class="slds-m-top_x-small">
+                    </p>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                    <lightning-record-form object-api-name={objectApiName} fields={fields} onsuccess={handleSuccess}>
+                    </lightning-record-form>
+
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+
+    </template>
+
+    <!-- password generator component -->
+    <template if:true={visibilitytoggle}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close">
+                        <lightning-button-icon icon-name="utility:close" size="medium" variant="border-inverse"
+                            alternative-text="View More" class="slds-m-left_xx-small" onclick={closePGmodal}>
+                        </lightning-button-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-modal__title slds-hyphenate">Generate a password</h2>
+                    <p class="slds-m-top_x-small">
+                        <!-- for future use -->
+                    </p>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+
+                    <!-- Password Generation form -->
+                    <div class="slds-form">
+                        <div class="slds-form-element slds-form-element_stacked">
+                            <div class="slds-form-element__control">
+                                <lightning-combobox name="progress" label="Select password Length" value={value}
+                                    placeholder="Select password difficulty" options={options} onchange={handleChange}>
+                                </lightning-combobox>
+
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_stacked">
+                            <label class="slds-form-element__label" for="stacked-input-id-01">Generated Password</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="stacked-input-id-02" placeholder="Placeholder Text"
+                                    class="slds-input" value={randomizerpassword}/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <template if:true={boolVisible}>  
+                    <!-- record edit form to create new password with selected value -->
+                    <lightning-record-edit-form object-api-name={objectApiName} onsuccess={handleSuccess}>
+                        <lightning-messages>
+                        </lightning-messages>
+                        <lightning-input-field field-name="algo2o__Application_Product_Name__c"></lightning-input-field>
+                        <lightning-input-field field-name="algo2o__Name_of_App__c"></lightning-input-field>
+                        <lightning-input-field field-name="algo2o__Password__c" value={randomizerpassword}></lightning-input-field>
+                        <lightning-input-field field-name="algo2o__Website_URL__c"></lightning-input-field>
+                        <lightning-input-field field-name="algo2o__Is_Salesforce__c"></lightning-input-field>
+                        <lightning-input-field field-name="algo2o__Username__c"></lightning-input-field>
+                        <lightning-input-field field-name="algo2o__Description__c"></lightning-input-field>
+                        <lightning-button class="slds-m-top_small" type="submit" label="Create new" >
+                        </lightning-button>
+                    </lightning-record-edit-form>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label={buttonLabel} onclick={recompvisible}></lightning-button>
+                </footer> 
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+
+    <!-- THis is the action panel with buttons and title -->
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                        <lightning-icon icon-name="standard:action_list_component" alternative-text="Approved"
+                            title="Approved"></lightning-icon>
+                        <span class="slds-assistive-text">Action Panel</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Actions</span>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning-button-group>
+                        <lightning-button label="Add new" onclick={addnewclickhandle}></lightning-button>
+                        <lightning-button label="Password Generator" onclick={passwordgeneratorHandle}>
+                        </lightning-button>
+                        <lightning-button label="Export Options" onclick={credentialexportconfirmation}></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </header>
+        </div>
+    </article>
+
+
+
+
+
+    <lightning-card if:true={credentialexportconfvisible}>
+        <div class="slds-container_small">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-012" class="slds-text-heading_medium slds-hyphenate">Still want to proceed ? 🤯 </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-12">
+                        <p>By exporting credentials , you are exposing the credentials to your apps on an excel file which can be viewed by any one having access to your device/computer.</p>
+                        <p></p>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral"
+                                          name="cancel"
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick={handleClick} ></lightning-button>
+                        <lightning-button variant="brand"
+                                          name="confirm"
+                                          label="Confirm"
+                                          title="Confirm"
+                                          onclick={exportCredentials} ></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </lightning-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</template>

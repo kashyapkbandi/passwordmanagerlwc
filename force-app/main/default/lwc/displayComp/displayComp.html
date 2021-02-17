@@ -1,0 +1,110 @@
+<template>
+
+    <template if:true={showcomponent}> 
+
+ 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <lightning-button-icon icon-name="utility:close"  size="medium" variant="border-inverse"   alternative-text="View More" class="slds-m-left_xx-small" onclick={closemodal}></lightning-button-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Update credential</h2>
+                        <p class="slds-m-top_x-small">
+                        </p>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        
+                        <lightning-record-edit-form record-id={result.Id} object-api-name="algo2o__Credential__c">
+                            <lightning-messages>
+                            </lightning-messages>
+                            <lightning-input-field field-name="algo2o__Application_Product_Name__c"></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Name_of_App__c" ></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Password__c"></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Website_URL__c"></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Is_Salesforce__c"></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Username__c"></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Description__c"></lightning-input-field>
+                            <lightning-input-field field-name="algo2o__Category__c "></lightning-input-field>
+        
+                            <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update"
+                                label="Update" onclick={handleSubmit}>
+                            </lightning-button>
+                        </lightning-record-edit-form>
+        
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+
+     </template>
+
+    
+    <article class="slds-card" style="padding:1%;   ">
+        <div class="slds-box">
+            <div class="demo-only slds-size_3-of-4">
+                <div class="slds-media slds-media_center">
+                    <div class="slds-media__figure">
+                        <span class="slds-avatar slds-avatar_large">
+                            <img alt={result.algo2o__Name_of_App__c}   src={result.algo2o__imageurl68__c}  title={result.algo2o__Name_of_App__c} />
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-p-around_small">
+
+                        <dl class="slds-list_stacked">
+                            <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label" style="margin-bottom: 2%;">
+                                <div class="slds-text-heading_large"><b>{result.algo2o__Name_of_App__c}</b></div>
+                            </dt>
+                        
+                            <dd class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label" style="margin-bottom: 1%;">    
+                                <div class="slds-text-heading_medium">{result.algo2o__Description__c}</div>
+                            </dd>
+
+                            <dd class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">    
+                                <div id="urlcopy" class="slds-text-heading_small"><i>Login URL: </i>{result.algo2o__Website_URL__c} <a href="#" onclick={copyhandler}>(Copy)</a> </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="slds-box slds-theme_shade">
+                <dl>
+                    <dt style="margin-bottom: 1%;padding:2px;"><strong>
+                        <div class="slds-text-heading_small"> Username :</div></strong> </dt>
+                    <dd style="margin-bottom: 2%;" class="usernamecopy">{result.algo2o__Username__c}  <a href="#" onclick={copyusernamehandler}>(Copy)</a> </dd>
+                    <dt style="margin-bottom: 1%;padding:2px;"><strong>Password :</strong> </dt>
+                    <dd class="passcopy">{result.algo2o__Password__c}  <a href="#" onclick={copyhandler}>(Copy)</a> </dd>
+                    </dl>
+              </div>
+
+            
+
+              
+
+            <div class="slds-box slds-theme_default">
+                <dl class="slds-list_stacked">
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label" style="margin-bottom: 1%;padding:2px;">Created on:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for first label" style="margin-bottom: 2%;">{result.CreatedDate}  </dd>
+
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label"  style="margin-bottom: 1%;padding:2px;">Last modified on:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Second description" style="margin-bottom: 2%;">{result.LastModifiedDate}</dd>
+
+
+
+                    </dl>
+
+            </div>
+
+            
+        <footer class="slds-card__footer">
+            <lightning-button label="Update Credentials" onclick={updateRecord}></lightning-button>
+
+            <lightning-button label="Delete"></lightning-button>
+        </footer>
+    </article>
+</template>

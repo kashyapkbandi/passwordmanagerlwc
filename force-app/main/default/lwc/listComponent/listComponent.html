@@ -1,0 +1,48 @@
+<template>
+    <div class="wrapper__listcomponent" style="background-color: #FFFFFF;">
+
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <!-- search bar -->
+                <div class="slds-p-around_medium">
+                    <lightning-input style="border-radius: 20px;" type="text" label="Search for Credential"
+                        value={searchkey} onchange={handleKeyChange}></lightning-input>
+                </div>
+
+               
+
+            </div>
+            <div class="slds-col">
+                <div class="slds-p-around_medium">
+                <lightning-button-group >
+                    <lightning-button label="" icon-name="utility:search" alternative-text="Search"
+                        onclick={handleClickSearch}></lightning-button>
+                    <lightning-button label="" icon-name="action:reject" alternative-text="Reset the input"
+                        onclick={handleClickReset}></lightning-button>
+                </lightning-button-group>
+                
+                
+                    <!-- Badge to show the current sorting method (Either alphabetic / custom search) -->
+                    <span style="margin-left:10px;" class="slds-badge">{currentsize}</span>
+                </div>
+            </div>
+            <div class="slds-col" style="height:700px;overflow: auto;">
+                <div class="slds-p-around_medium">
+                    <ul>
+                        <template if:true={credentialList.data}>
+
+                            <template for:each={credentialList.data} for:item="credential">
+                                <li key={credential.Id} style="margin-bottom: 5px;">
+                                    <c-credential-Visualmat credentialvalue={credential}  onselected={credentialSelected}></c-credential-Visualmat>
+                                </li>
+                            </template>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
