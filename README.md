@@ -1,18 +1,28 @@
-# Salesforce DX Project: Next Steps
+# Component details: 
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
 
-## How Do You Plan to Deploy Your Changes?
+LWC - actionPanel 
+Responsible for hosting Add Credentials button, Password generator and Export option buttons.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+LWC - credentialexportconfirmation
+Just a pop up confirmation.
 
-## Configure Your Salesforce DX Project
+LWC - credentialVisualmat
+Visualmats showing list of credentials on left side
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+LWC - displayComp
+shows the details of the credentials
 
-## Read All About It
+LWC - deckComp
+entire deck holding both list , action panel and display comoponents. 
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+LWC - listComponent
+holds the credentialVisualmat component(s) 
+
+LWC - passwordGenerator
+the modal used for selecting password length and creating new credential record. ]
+
+Apex classes: 
+ExportCreds - Creates CSV string and sends Email (used in export credentials)
+PasswordManagerController - initial fetch of records 
+PasswordGenerationControl - very simple random password generator
