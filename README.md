@@ -1,3 +1,7 @@
+# What is Password Manager ? 
+
+Simple Password Management Application which can be used for an org to store passwords. 
+
 # Component details: 
 
 
